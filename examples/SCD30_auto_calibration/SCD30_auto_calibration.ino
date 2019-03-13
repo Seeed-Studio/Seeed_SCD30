@@ -25,6 +25,8 @@ void setup()
     SERIAL.begin(115200);
     SERIAL.println("SCD30 Raw Data");
     scd30.initialize();
+    //Calibration for minimum 7 days,after this ,close auto self calibration operation.
+    scd30.setAutoSelfCalibration(1);
 }
 
 void loop()

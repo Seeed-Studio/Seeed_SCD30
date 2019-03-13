@@ -36,9 +36,19 @@ SCD30::SCD30(void)
 
 void SCD30::initialize(void)
 {
+    //Set temperature offset。
+    //setTemperatureOffset(0);  
+
     setMeasurementInterval(2); // 2 seconds between measurements
     startPeriodicMeasurment(); // start periodic measuments
-    setAutoSelfCalibration(true); // Enable auto-self-calibration
+
+    //setAutoSelfCalibration(true); // Enable auto-self-calibration
+}
+
+
+void SCD30::setTemperatureOffset(uint16_t offset)
+{
+    writeCommandWithArguments(SCD30_SET_TEMP_OFFSET, offset);
 }
 
 bool SCD30::isAvailable(void)
@@ -67,21 +77,32 @@ void SCD30::stopMeasurement(void)
     writeCommand(SCD30_STOP_MEASUREMENT);
 }
 
-float SCD30::getCarbonDioxideConcentration(void)
+void SCD30::getCarbonDioxideConcentration(float *result)
 {
     uint8_t buf[18] = { 0 };
+    uint32_t co2U32 = 0;
     uint32_t tempU32 = 0;
+    uint32_t humU32 = 0;
     float co2Concentration = 0;
+    float temperature = 0;
+    float humidity = 0;
     
     writeCommand(SCD30_READ_MEASUREMENT);
     readBuffer(buf, 18);
     
-    tempU32 = (uint32_t)((((uint32_t)buf[0]) << 24) | (((uint32_t)buf[1]) << 16) | 
+    co2U32 = (uint32_t)((((uint32_t)buf[0]) << 24) | (((uint32_t)buf[1]) << 16) | 
 			(((uint32_t)buf[3]) << 8) | ((uint32_t)buf[4]));
-            
-    memcpy(&co2Concentration, &tempU32, sizeof(co2Concentration));       
 
-    return co2Concentration;
+    tempU32 = (uint32_t)((((uint32_t)buf[6]) << 24) | (((uint32_t)buf[7]) << 16) | 
+			(((uint32_t)buf[9]) << 8) | ((uint32_t)buf[10]));
+
+    humU32 = (uint32_t)((((uint32_t)buf[12]) << 24) | (((uint32_t)buf[13]) << 16) | 
+			(((uint32_t)buf[15]) << 8) | ((uint32_t)buf[16]));
+
+    memcpy(&result[0], &co2U32, sizeof(co2Concentration));       
+    memcpy(&result[1], &tempU32, sizeof(temperature));       
+    memcpy(&result[2], &humU32, sizeof(humidity));       
+
 }
 
 void SCD30::writeCommand(uint16_t command)

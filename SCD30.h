@@ -46,6 +46,9 @@
 #define SCD30_SET_ALTITUDE_COMPENSATION         0x5102
 #define SCD30_READ_SERIALNBR                    0xD033
 
+#define SCD30_SET_TEMP_OFFSET                   0x5403
+
+
 #define SCD30_POLYNOMIAL                        0x31 // P(x) = x^8 + x^5 + x^4 + 1 = 100110001
 
 class SCD30
@@ -63,9 +66,9 @@ class SCD30
         
         void startPeriodicMeasurment(void);
         void stopMeasurement(void);
+        void setTemperatureOffset(uint16_t offset);
         
-        float getCarbonDioxideConcentration(void);
-        
+        void getCarbonDioxideConcentration(float *result);
     private:
     
         uint8_t calculateCrc(uint8_t *data, uint8_t len);
