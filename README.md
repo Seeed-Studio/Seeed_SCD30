@@ -1,4 +1,4 @@
-# Seeed SCD30 Library
+# Seeed SCD30 Library  [![Build Status](https://travis-ci.com/Seeed-Studio/Seeed_SCD30.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Seeed_SCD30)
 
 This is the Arduino library for Seeed's SCD30 based products.
 
