@@ -1,6 +1,9 @@
 #include "SCD30.h"
 
-#if defined(ARDUINO_ARCH_AVR)
+#if defined(PARTICLE)
+    #pragma message("Defined architecture for ARDUINO_ARCH_AVR.")
+    #define SERIAL Serial
+#elif defined(ARDUINO_ARCH_AVR)
     #pragma message("Defined architecture for ARDUINO_ARCH_AVR.")
     #define SERIAL Serial
 #elif defined(ARDUINO_ARCH_SAM)
