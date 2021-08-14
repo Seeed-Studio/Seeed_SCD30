@@ -63,7 +63,7 @@ class SCD30 {
     void setAutoSelfCalibration(bool enable);
     void setMeasurementInterval(uint16_t interval);
 
-    void startPeriodicMeasurment(void);
+    void startPeriodicMeasurement(void);
     void stopMeasurement(void);
     void setTemperatureOffset(uint16_t offset);
 
