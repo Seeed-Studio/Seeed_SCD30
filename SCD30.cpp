@@ -39,7 +39,7 @@ void SCD30::initialize(void) {
     
     Wire.begin(); // Added Wire begin to avoid infinite waiting
     setMeasurementInterval(2); // 2 seconds between measurements
-    startPeriodicMeasurment(); // start periodic measuments
+    startPeriodicMeasurement(); // start periodic measuments
 
     //setAutoSelfCalibration(true); // Enable auto-self-calibration
 }
@@ -65,7 +65,7 @@ void SCD30::setMeasurementInterval(uint16_t interval) {
     writeCommandWithArguments(SCD30_SET_MEASUREMENT_INTERVAL, interval);
 }
 
-void SCD30::startPeriodicMeasurment(void) {
+void SCD30::startPeriodicMeasurement(void) {
     writeCommandWithArguments(SCD30_CONTINUOUS_MEASUREMENT, 0x0000);
 }
 
