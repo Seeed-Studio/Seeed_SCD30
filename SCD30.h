@@ -49,7 +49,7 @@
 #define SCD30_SET_TEMP_OFFSET                   0x5403
 
 
-#define SCD30_POLYNOMIAL                        0x31 // P(x) = x^8 + x^5 + x^4 + 1 = 100110001
+#define SCD30_POLYNOMIAL                        0x31 // P(x) = x^8 + x^5 + x^4 + X^0 = 100110001
 
 class SCD30 {
   public:
