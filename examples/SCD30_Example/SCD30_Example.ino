@@ -5,13 +5,31 @@
     #define SERIAL Serial
 #elif defined(ARDUINO_ARCH_SAM)
     #pragma message("Defined architecture for ARDUINO_ARCH_SAM.")
-    #define SERIAL SerialUSB
+    #ifdef SEEED_XIAO_M0
+        #define SERIAL Serial
+    #elif defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
+        #define SERIAL SerialUSB
+    #else
+        #define SERIAL Serial
+    #endif
 #elif defined(ARDUINO_ARCH_SAMD)
     #pragma message("Defined architecture for ARDUINO_ARCH_SAMD.")
-    #define SERIAL SerialUSB
+    #ifdef SEEED_XIAO_M0
+        #define SERIAL Serial
+    #elif defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
+        #define SERIAL SerialUSB
+    #else
+        #define SERIAL Serial
+    #endif
 #elif defined(ARDUINO_ARCH_STM32F4)
     #pragma message("Defined architecture for ARDUINO_ARCH_STM32F4.")
-    #define SERIAL SerialUSB
+    #ifdef SEEED_XIAO_M0
+        #define SERIAL Serial
+    #elif defined(ARDUINO_SAMD_VARIANT_COMPLIANCE)
+        #define SERIAL SerialUSB
+    #else
+        #define SERIAL Serial
+    #endif
 #else
     #pragma message("Not found any architecture.")
     #define SERIAL Serial
